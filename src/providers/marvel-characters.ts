@@ -21,6 +21,7 @@ export class MarvelCharacters {
   marvelApiVersion = "v1/";
   marvelAllCharacters = "public/characters";
   marvelOneCharacter = "public/characters/";
+  marvelQuery = "&nameStartsWith=";
 
   constructor(public http: Http) {}
 
@@ -36,5 +37,21 @@ export class MarvelCharacters {
     return this.http.get(`${this.marvelApiUrl}${this.marvelApiVersion}${this.marvelOneCharacter}${id}${this.marvelApiKey}${this.marvelHash}${this.marvelTimestamp}`)
       .map(res => <Character>res.json().data.results[0])
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  // Search for chracters  
+  searchCharacters(searchParam: string, offset: number): Observable<Character[]> {
+    return this.http.get(`${this.marvelApiUrl}${this.marvelApiVersion}${this.marvelAllCharacters}${this.marvelApiKey}${this.marvelHash}${this.marvelTimestamp}${this.marvelQuery}${searchParam}${this.marvelOffset}${offset}`)
+      .map(res => <Character[]>(res.json().data.results))
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  showError(message: string) {
+    let loading = this.loadingCtrl.create({
+        content: 'Please wait...'
+    });
+
+      loading.present();
+    ));
   }
 }

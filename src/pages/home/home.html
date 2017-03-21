@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="background">
+  <ion-navbar color="primary">
     <ion-title text-center>
       <img src="assets/images/marvel.png" class="image-header">
     </ion-title>
@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content color="background" class="black-background">
-  <ion-searchbar></ion-searchbar>
+  <ion-searchbar padding (input)="search($event)" (ionClear)="clear()"></ion-searchbar>
 
   <ion-list inset color="background">
     <button color="background" class="no-padding-left" ion-item *ngFor="let character of characters" (click)="goToDetails(character?.id)">

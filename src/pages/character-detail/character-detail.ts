@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 
 //Models
 import { Character } from '../../models/character';
@@ -21,18 +21,34 @@ export class CharacterDetailPage {
   id: number
   character: Character
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, private marvelCharacters: MarvelCharacters) {
-    let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private alertCtrl: AlertController, public navParams: NavParams, private marvelCharacters: MarvelCharacters) {
+    let loading = this.createLoader();
     loading.present();
 
     this.id = navParams.get('id');
     marvelCharacters.gerCharacter(this.id).subscribe(character => {
       this.character = character;
       loading.dismiss();
+    },
+    err => {
+        // Log errors if any
+        loading.dismiss();
+        let alert = this.createAlert("Error", err, ['Close']);
+        alert.present();
     })
   }
 
+  createLoader(msg: string = "Please wait...") : any { 
+    return this.loadingCtrl.create({
+      content: msg
+    });
+  }
+
+  createAlert(title: string = "Error", subTitle: string = "Error...", buttons: Array<String>) : any {
+    return this.alertCtrl.create({
+      title: title,
+      subTitle: subTitle,
+      buttons: buttons
+    });
+  }
 }
