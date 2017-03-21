@@ -45,13 +45,4 @@ export class MarvelCharacters {
       .map(res => <Character[]>(res.json().data.results))
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
-
-  showError(message: string) {
-    let loading = this.loadingCtrl.create({
-        content: 'Please wait...'
-    });
-
-      loading.present();
-    ));
-  }
 }
