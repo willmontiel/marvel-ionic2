@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 //Models
 import { Character } from '../../models/character';
@@ -21,10 +21,17 @@ export class CharacterDetailPage {
   id: number
   character: Character
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private marvelCharacters: MarvelCharacters) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, private marvelCharacters: MarvelCharacters) {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
+
     this.id = navParams.get('id');
     marvelCharacters.gerCharacter(this.id).subscribe(character => {
       this.character = character;
+      loading.dismiss();
     })
   }
 

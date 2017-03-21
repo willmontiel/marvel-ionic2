@@ -1,20 +1,26 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Marvel Characters
+  <ion-navbar color="background">
+    <ion-title text-center>
+      <img src="assets/images/marvel.png" class="image-header">
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content color="background" class="black-background">
   <ion-searchbar></ion-searchbar>
-  <ion-list>
-    <button ion-item *ngFor="let character of characters" (click)="goToDetails(character.id)">
-      <ion-avatar item-left>
-        <img [src]="character.thumbnail.path + '.' + character.thumbnail.extension">
-      </ion-avatar>
-      <h2>{{ character.name }}</h2>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
+
+  <ion-list inset color="background">
+    <button color="background" class="no-padding-left" ion-item *ngFor="let character of characters" (click)="goToDetails(character?.id)">
+      <ion-thumbnail item-left class="thumbnail">
+        <img [src]="character?.thumbnail.path + '.' + character?.thumbnail.extension">
+      </ion-thumbnail>
+      <h2>{{ character?.name }}</h2>
+      <p text-nowrap>{{ character?.description }}</p>
+      <ion-icon os="" md="md-arrow-forward" wp="md-arrow-forward" item-right></ion-icon>
     </button>
   </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

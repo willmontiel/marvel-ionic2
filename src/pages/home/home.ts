@@ -17,10 +17,22 @@ import {  MarvelCharacters } from '../../providers/marvel-characters';
 })
 export class HomePage {
   characters: Character[]
+  elements: number = 20;
 
   constructor(public navCtrl: NavController, private marvelCharacters: MarvelCharacters) {
-    marvelCharacters.gerCharacters().subscribe(characters => {
+    marvelCharacters.gerCharacters(this.elements).subscribe(characters => {
       this.characters = characters
+    })
+  }
+
+  doInfinite(infiniteScroll) {
+    this.elements = this.elements + this.elements;
+    this.marvelCharacters.gerCharacters(this.elements).subscribe(characters => {
+      //this.characters.concat(characters);
+      for (let i = 0; i < characters.length; i++) {
+        this.characters.push(characters[i]);
+      }
+      infiniteScroll.complete();
     })
   }
 

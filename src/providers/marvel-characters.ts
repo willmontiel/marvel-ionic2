@@ -17,7 +17,7 @@ export class MarvelCharacters {
   marvelApiKey = "?apikey=c9cd45cc18a495a5f6f1a619cc16bc13";
   marvelHash = "&hash=6505d2217a44995181d90e93f3aadb99";
   marvelTimestamp = "&ts=1464344031.142341";
-  marvelOffset = "&offset=20";
+  marvelOffset = "&offset=";
   marvelApiVersion = "v1/";
   marvelAllCharacters = "public/characters";
   marvelOneCharacter = "public/characters/";
@@ -25,8 +25,8 @@ export class MarvelCharacters {
   constructor(public http: Http) {}
 
   // Load all marvel characters
-  gerCharacters(): Observable<Character[]> {
-    return this.http.get(`${this.marvelApiUrl}${this.marvelApiVersion}${this.marvelAllCharacters}${this.marvelApiKey}${this.marvelHash}${this.marvelTimestamp}${this.marvelOffset}`)
+  gerCharacters(offset: number): Observable<Character[]> {
+    return this.http.get(`${this.marvelApiUrl}${this.marvelApiVersion}${this.marvelAllCharacters}${this.marvelApiKey}${this.marvelHash}${this.marvelTimestamp}${this.marvelOffset}${offset}`)
       .map(res => <Character[]>res.json().data.results)
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
