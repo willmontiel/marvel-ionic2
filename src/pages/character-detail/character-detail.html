@@ -1,0 +1,40 @@
+<!--
+  Generated template for the CharacterDetail page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{character?.name}}'s details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div class="item item-image">
+    <img [src]="character?.thumbnail.path + '.' + character?.thumbnail.extension">
+  </div>
+  
+  <ion-list>
+    <ion-item>
+      <ion-label>Comics</ion-label>
+      <ion-badge item-right>{{character?.comics.available}}</ion-badge>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Series</ion-label>
+      <ion-badge item-right>{{character?.series.available}}</ion-badge>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Stories</ion-label>
+      <ion-badge item-right>{{character?.stories.available}}</ion-badge>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Events</ion-label>
+      <ion-badge item-right>{{character?.events.available}}</ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>
