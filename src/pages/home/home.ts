@@ -31,7 +31,6 @@ export class HomePage {
     err => {
         // Log errors if any
         console.log(err);
-        console.log("LALALAAL");
     })
   }
 

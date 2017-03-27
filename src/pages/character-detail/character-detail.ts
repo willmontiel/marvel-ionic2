@@ -7,6 +7,9 @@ import { Character } from '../../models/character';
 //Providers
 import { MarvelCharacters } from '../../providers/marvel-characters';
 
+//Services
+import { Misc } from '../../modules/services/misc';
+
 /*
   Generated class for the CharacterDetail page.
 
@@ -17,6 +20,7 @@ import { MarvelCharacters } from '../../providers/marvel-characters';
   selector: 'page-character-detail',
   templateUrl: 'character-detail.html'
 })
+
 export class CharacterDetailPage {
   id: number
   character: Character
@@ -31,7 +35,6 @@ export class CharacterDetailPage {
       loading.dismiss();
     },
     err => {
-        // Log errors if any
         loading.dismiss();
         let alert = this.createAlert("Error", err, ['Close']);
         alert.present();
